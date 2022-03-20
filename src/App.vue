@@ -1,18 +1,54 @@
 <template>
   <div class="container">
-    <HeaderTaskTracker />  
+    <Header title="Task Tracker"/>  
+    <Tasks @delete-task="deleteTask" :tasks="tasks"/>
   </div>
-
 </template>
 
 <script>
 
-import HeaderTaskTracker from "@/components/Header-task-tracker";
+import Header from "@/components/Header";
+import Tasks from "@/components/Tasks";
 
 export default {
   name: 'App',
   components: {
-    HeaderTaskTracker
+    Header,
+    Tasks
+  },
+  data(){
+    return {
+      tasks: []
+    }
+  },
+  methods:{
+    deleteTask(id) {
+      if (confirm('Are you sure?')) {
+        this.tasks = this.tasks.filter((task)=>task.id !== id)  
+      }
+    }
+  },
+  created() {
+    this.tasks = [
+      {
+        "id": "1",
+        "text": "Doctors Appointment",
+        "day": "March 5th at 2:30pm",
+        "reminder": true
+      },
+      {
+        "id": "2",
+        "text": "Meeting with boss",
+        "day": "March 6th at 1:30pm",
+        "reminder": true
+      },
+      {
+        "id": "3",
+        "text": "Food shopping",
+        "day": "March 7th at 2:00pm",
+        "reminder": false
+      }
+    ];
   }
 }
 </script>
